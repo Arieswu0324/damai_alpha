@@ -714,7 +714,7 @@ api.limit.paths:
 
 ### 第1步：理解请求流程
 1. `GatewayApplication.java:20` - 启动类
-2. `RequestValidationFilter.java:89` - 请求过滤器主流程
+2. `RequestValidationFilter.java:89` - 请求过滤器
 3. `ResponseValidationFilter.java:46` - 响应过滤器
 
 ### 第2步：深入核心服务
@@ -738,12 +738,3 @@ api.limit.paths:
 
 ---
 
-## 联系与支持
-
-如有问题或建议，请联系项目维护团队。
-
----
-
-**最后更新日期**：2025年12月
-
-**文档版本**：v1.0
