@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+    sentinel: #单机限流
+      # 开启 eager 加载，强制 Sentinel 启动时初始化
+      eager: true
+      transport:
+        dashboard: localhost:8858
+        # 强制指定本机 IP，解决 Docker 网络不通问题
+        client-ip: 192.168.3.81
+        port: 8719
+      datasource:
+        gateway-rules: #网关流量控制
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: gateway-sentinel-rules.json
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-flow
+            username: nacos
+            password: nacos
+
+        gateway-degrade-rules: # 网关熔断规则
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: gateway-degrade-rules.json
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: degrade
+
+# 可选： 暴露 Actuator 端点
+management:
+  endpoints:
+    web:
+      exposure:
+        # 只暴露这三个最有用的
+        include: "health,gateway,sentinel"
+  endpoint:
+    health:
+      show-details: always
+
